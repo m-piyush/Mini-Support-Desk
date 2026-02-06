@@ -32,25 +32,3 @@ export async function POST(req: Request) {
   const ticket = await Ticket.create(data);
   return NextResponse.json(ticket, { status: 201 });
 }
-
-
-export async function DELETE(
-  _req: Request,
-  { params }: { params: { id: string } }
-) {
-  await connectDB();
-
-  const deleted = await Ticket.findByIdAndDelete(params.id);
-
-  if (!deleted) {
-    return NextResponse.json(
-      { message: "Ticket not found" },
-      { status: 404 }
-    );
-  }
-
-  return NextResponse.json(
-    { message: "Ticket deleted successfully" },
-    { status: 200 }
-  );
-}
